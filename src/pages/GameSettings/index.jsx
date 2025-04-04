@@ -108,13 +108,26 @@ class GameSettings extends Component {
                     <div className="themesSets">
                         <ul>
                             <li>
-                                <Button onClick={() => this.changeTheme(0)} value={themes.themes_data.dark.title} />
+                                <Button 
+                                    onClick={() => {
+                                        this.changeTheme(0);
+                                        this.setState({ selectedTheme: 0 });
+                                    }} 
+                                    value={themes.themes_data.dark.title} 
+                                    style={{ backgroundColor: this.state.selectedTheme === 0 ? 'lightblue' : 'initial' }}
+                                />
                             </li>
 
                             <li>
-                                <Button onClick={() => this.changeTheme(1)} value={themes.themes_data.white.title} />
+                                <Button 
+                                    onClick={() => {
+                                        this.changeTheme(1);
+                                        this.setState({ selectedTheme: 1 });
+                                    }} 
+                                    value={themes.themes_data.white.title} 
+                                    style={{ backgroundColor: this.state.selectedTheme === 1 ? 'lightblue' : 'initial' }}
+                                />
                             </li>
-
                         </ul>
                     </div>
 
@@ -122,27 +135,60 @@ class GameSettings extends Component {
                         <h1>Rounds: </h1>
                         <ul>
                             <li>
-                                <Button onClick={() => this.setRounds(1)} value="1" />
+                                <Button 
+                                    onClick={() => {
+                                        this.setRounds(1);
+                                        this.setState({ selectedRounds: 1 });
+                                    }} 
+                                    value="1" 
+                                    style={{ backgroundColor: this.state.selectedRounds === 1 ? 'lightblue' : 'initial' }}
+                                />
                             </li>
 
                             <li>
-                                <Button onClick={() => this.setRounds(3)} value="3" />
+                                <Button 
+                                    onClick={() => {
+                                        this.setRounds(3);
+                                        this.setState({ selectedRounds: 3 });
+                                    }} 
+                                    value="3" 
+                                    style={{ backgroundColor: this.state.selectedRounds === 3 ? 'lightblue' : 'initial' }}
+                                />
                             </li>
 
                             <li>
-                                <Button onClick={() => this.setRounds(5)} value="5" />
+                                <Button 
+                                    onClick={() => {
+                                        this.setRounds(5);
+                                        this.setState({ selectedRounds: 5 });
+                                    }} 
+                                    value="5" 
+                                    style={{ backgroundColor: this.state.selectedRounds === 5 ? 'lightblue' : 'initial' }}
+                                />
                             </li>
                         </ul>
                     </div>
                     <div className="players">
                         <div>
                             <h1>Player 1: </h1>
-                            <input type="text" placeholder="Name..." className="inputNickname" onChange={(e) => this.setState({ inputP1: e.target.value, nicknameP1: e.target.value })} value={this.state.inputP1} />
+                            <input 
+                                type="text" 
+                                placeholder="Name..." 
+                                className="inputNickname" 
+                                onChange={(e) => this.setState({ inputP1: e.target.value, nicknameP1: e.target.value })} 
+                                value={this.state.inputP1} 
+                            />
                         </div>
 
                         <div>
                             <h1>Player 2: </h1>
-                            <input type="text" placeholder="Name..." className="inputNickname" onChange={(e) => this.setState({ inputP2: e.target.value, nicknameP2: e.target.value })} value={this.state.inputP2} />
+                            <input 
+                                type="text" 
+                                placeholder="Name..." 
+                                className="inputNickname" 
+                                onChange={(e) => this.setState({ inputP2: e.target.value, nicknameP2: e.target.value })} 
+                                value={this.state.inputP2} 
+                            />
                         </div>
                     </div>
                     <div>

@@ -266,6 +266,7 @@ class Game extends Component {
         } else {
             return (
                 <div className="Game">
+                
 
                     <h1 className="player">Turn: {(this.state.symbols.options[this.state.symbols.turn_index] === "X") ? this.state.game.p1.nickname : this.state.game.p2.nickname} ({this.state.symbols.options[this.state.symbols.turn_index]})</h1>
 
