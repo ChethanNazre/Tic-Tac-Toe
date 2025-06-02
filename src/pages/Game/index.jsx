@@ -81,23 +81,51 @@ class Game extends Component {
     }
     // Display the current round number in the UI
     getCurrentRound() {
+
+        const selectedRounds = game_data.load().maxRounds || 1; // Default to 1 if not set
+
         const game = game_data.load();
+
+        // Initialize roundNumber if it doesn't exist
         if (!game.roundNumber) {
+            game.roundNumber = 1; // Default round is 1
+        }
+        // Increment the round number, or reset if it exceeds maxRounds
+        if (!game.maxRounds) {
+            game.roundNumber = 1;
+        }
+        if (!game.maxRounds || game.roundNumber >= game.maxRounds) {
+            game.maxRounds = selectedRounds; // Set to the selected rounds if not set
+        }
+        // Increment the round number
+        // If roundNumber is not set, initialize it to 1
+        if (!game.roundNumber || game.roundNumber < 1) {
             game.roundNumber = 1; // Default round is 1
         } else if (game.roundNumber < game.maxRounds) {
             game.roundNumber++;
         } else {
             game.roundNumber = 1; // Restart the count when max rounds are reached
         }
-
         // Ensure the round count respects the selected game setting (1, 3, or 5 rounds)
         const validRounds = [1, 3, 5];
         if (!validRounds.includes(game.maxRounds)) {
-            game.maxRounds = 1; // Default to 1 round if invalid
+            game.maxRounds = 1; // Default to 1 round if not set
         }
-
-        this.setState({ game }); // Update the state with the modified game object
-        return game.roundNumber || 1;
+        // Update the game object with the new round number
+        game.roundNumber = game.roundNumber || 1; // Ensure roundNumber is at least 1
+        game.maxRounds = game.maxRounds || 1; // Ensure maxRounds is at least 1
+        // Increment the round number, or reset if it exceeds maxRounds
+        if (!game.roundNumber || game.roundNumber < 1) {
+            game.roundNumber = 1; // Default round is 1
+        } else if (game.roundNumber < game.maxRounds) {
+            game.roundNumber++;
+            } else {
+            game.roundNumber = 1; // Restart the count when max rounds are reached
+        }
+        // Save the updated game object
+        game_data.save(game);
+        // Return the current round number
+        return game.roundNumber;    
     }
 
     async make_play(position) {

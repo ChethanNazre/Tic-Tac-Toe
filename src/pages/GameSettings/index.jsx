@@ -161,7 +161,7 @@ class GameSettings extends Component {
                                     onClick={() => {
                                         this.setRounds(5);
                                         this.setState({ selectedRounds: 5 });
-                                    }} z
+                                    }}
                                     value="5" 
                                     style={{ backgroundColor: this.state.selectedRounds === 5 ? 'lightblue' : 'initial' }}
                                 />
