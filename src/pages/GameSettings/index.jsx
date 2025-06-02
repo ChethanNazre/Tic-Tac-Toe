@@ -30,6 +30,7 @@ class GameSettings extends Component {
 
         inputP1: '',
         inputP2: '',
+        selectedRounds: null,
     }
 
     constructor(props) {

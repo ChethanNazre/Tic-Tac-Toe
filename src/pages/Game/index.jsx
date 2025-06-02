@@ -83,12 +83,19 @@ class Game extends Component {
     getCurrentRound() {
         const game = game_data.load();
         if (!game.roundNumber) {
-            game.roundNumber = 1;
+            game.roundNumber = 1; // Default round is 1
         } else if (game.roundNumber < game.maxRounds) {
             game.roundNumber++;
         } else {
             game.roundNumber = 1; // Restart the count when max rounds are reached
         }
+
+        // Ensure the round count respects the selected game setting (1, 3, or 5 rounds)
+        const validRounds = [1, 3, 5];
+        if (!validRounds.includes(game.maxRounds)) {
+            game.maxRounds = 1; // Default to 1 round if invalid
+        }
+
         return game.roundNumber || 1;
     }
 
