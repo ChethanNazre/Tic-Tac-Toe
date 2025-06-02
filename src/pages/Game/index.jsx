@@ -79,15 +79,20 @@ class Game extends Component {
         this.setState({ game });
         themes.loadThemes();
     }
-
     // Display the current round number in the UI
     getCurrentRound() {
-        // Try to get roundNumber from state, fallback to 1 if not found
-        return this.state.game && this.state.game.roundNumber ? this.state.game.roundNumber : 1;
+        const game = game_data.load();
+        if (!game.roundNumber) {
+            game.roundNumber = 1;
+        } else if (game.roundNumber < game.maxRounds) {
+            game.roundNumber++;
+        }
+        return game.roundNumber || 1;
     }
 
     async make_play(position) {
-
+        const game = game_data.load();
+        
         if (this.state.gameover) return false;
         if (this.state.board[position] === '') {
             const board = this.state.board;
