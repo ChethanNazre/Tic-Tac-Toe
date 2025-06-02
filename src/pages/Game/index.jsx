@@ -96,6 +96,7 @@ class Game extends Component {
             game.maxRounds = 1; // Default to 1 round if invalid
         }
 
+        this.setState({ game }); // Update the state with the modified game object
         return game.roundNumber || 1;
     }
 
