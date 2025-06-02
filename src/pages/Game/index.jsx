@@ -274,7 +274,7 @@ class Game extends Component {
                 
 
                     <h1 className="player">Turn: {(this.state.symbols.options[this.state.symbols.turn_index] === "X") ? this.state.game.p1.nickname : this.state.game.p2.nickname} ({this.state.symbols.options[this.state.symbols.turn_index]})</h1>
-
+                      <h2>Current Round: {this.getCurrentRound()}</h2>
                     <Board>
                         {this.state.board.map((value, index) =>
                             <Field key={index} click={() => this.make_play(index)}>{value}</Field>)
