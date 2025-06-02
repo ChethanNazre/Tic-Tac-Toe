@@ -88,6 +88,10 @@ class Game extends Component {
             game.roundNumber++;
         }
         return game.roundNumber || 1;
+    if (game.roundNumber > game.maxRounds) {
+        game.roundNumber = 1;
+    }
+    game_data.save(game);
     }
 
     async make_play(position) {
