@@ -88,10 +88,6 @@ class Game extends Component {
             game.roundNumber++;
         }
         return game.roundNumber || 1;
-    if (game.roundNumber > game.maxRounds) {
-        game.roundNumber = 1;
-    }
-    game_data.save(game);
     }
 
     async make_play(position) {
@@ -278,11 +274,12 @@ class Game extends Component {
         if (this.state.redirect) {
             return <Redirect to="/" />
         } else {
-            const roundNumber = this.getCurrentRound();
             return (
                 <div className="Game">
+                
+
                     <h1 className="player">Turn: {(this.state.symbols.options[this.state.symbols.turn_index] === "X") ? this.state.game.p1.nickname : this.state.game.p2.nickname} ({this.state.symbols.options[this.state.symbols.turn_index]})</h1>
-                    <div>Current Round: {roundNumber}</div>
+                      <h2>Current Round: {this.getCurrentRound()}</h2>
                     <Board>
                         {this.state.board.map((value, index) =>
                             <Field key={index} click={() => this.make_play(index)}>{value}</Field>)
