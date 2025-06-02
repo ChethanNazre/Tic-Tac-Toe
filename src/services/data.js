@@ -9,7 +9,11 @@ export const gameData = {
             return false;
         }
     },
-
+    getCurrentRound() {
+        const data = this.load();
+        return data ? data.roundNumber : null;
+    },
+    
     generateData(maxRounds, nameP1, nameP2) {
         const game_data = {
             maxRounds,
