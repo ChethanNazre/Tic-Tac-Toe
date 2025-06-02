@@ -86,7 +86,6 @@ class Game extends Component {
         return this.state.game && this.state.game.roundNumber ? this.state.game.roundNumber : 1;
     }
 
-
     async make_play(position) {
 
         if (this.state.gameover) return false;
