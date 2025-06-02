@@ -41,7 +41,7 @@ class Game extends Component {
         board: ['', '', '', '', '', '', '', '', ''],
         symbols: {
             options: ['X', 'O'],
-            turn_index: Math.round(Math.random(0, 1)),
+            turn_index: Math.round(Math.random()), // Math.random() returns a float between 0 and 1
             change() {
                 this.turn_index = (this.turn_index === 0) ? 1 : 0;
             }
@@ -81,51 +81,9 @@ class Game extends Component {
     }
     // Display the current round number in the UI
     getCurrentRound() {
-
-        const selectedRounds = game_data.load().maxRounds || 1; // Default to 1 if not set
-
+        // Only read, do not mutate or increment here!
         const game = game_data.load();
-
-        // Initialize roundNumber if it doesn't exist
-        if (!game.roundNumber) {
-            game.roundNumber = 1; // Default round is 1
-        }
-        // Increment the round number, or reset if it exceeds maxRounds
-        if (!game.maxRounds) {
-            game.roundNumber = 1;
-        }
-        if (!game.maxRounds || game.roundNumber >= game.maxRounds) {
-            game.maxRounds = selectedRounds; // Set to the selected rounds if not set
-        }
-        // Increment the round number
-        // If roundNumber is not set, initialize it to 1
-        if (!game.roundNumber || game.roundNumber < 1) {
-            game.roundNumber = 1; // Default round is 1
-        } else if (game.roundNumber < game.maxRounds) {
-            game.roundNumber++;
-        } else {
-            game.roundNumber = 1; // Restart the count when max rounds are reached
-        }
-        // Ensure the round count respects the selected game setting (1, 3, or 5 rounds)
-        const validRounds = [1, 3, 5];
-        if (!validRounds.includes(game.maxRounds)) {
-            game.maxRounds = 1; // Default to 1 round if not set
-        }
-        // Update the game object with the new round number
-        game.roundNumber = game.roundNumber || 1; // Ensure roundNumber is at least 1
-        game.maxRounds = game.maxRounds || 1; // Ensure maxRounds is at least 1
-        // Increment the round number, or reset if it exceeds maxRounds
-        if (!game.roundNumber || game.roundNumber < 1) {
-            game.roundNumber = 1; // Default round is 1
-        } else if (game.roundNumber < game.maxRounds) {
-            game.roundNumber++;
-            } else {
-            game.roundNumber = 1; // Restart the count when max rounds are reached
-        }
-        // Save the updated game object
-        game_data.save(game);
-        // Return the current round number
-        return game.roundNumber;    
+        return game.roundNumber || 1;
     }
 
     async make_play(position) {
@@ -167,38 +125,39 @@ class Game extends Component {
                     }
                     setTimeout(() => this.alert(data), 150);
                 } else {
-                    await game_data.save(nextGameStatus)
+        await game_data.save(nextGameStatus)
 
-                    let timerInterval;
-                    Swal.fire({
-                        title: 'Next round',
-                        html: 'Next round in <b></b> milliseconds.',
-                        timer: 700,
-                        timerProgressBar: true,
-                        onBeforeOpen: () => {
-                            Swal.showLoading()
-                            timerInterval = setInterval(() => {
-                                const content = Swal.getContent()
-                                if (content) {
-                                    const b = content.querySelector('b')
-                                    if (b) {
-                                        b.textContent = Swal.getTimerLeft()
-                                    }
-                                }
-                            }, 100)
-                        },
-                        onClose: () => {
-                            clearInterval(timerInterval)
-                            this.start()
+        let timerInterval;
+        Swal.fire({
+            title: 'Next Round!',
+            html: 'Starting in <b></b> milliseconds.',
+            timer: 2000,
+            timerProgressBar: true,
+            didOpen: () => {
+                Swal.showLoading()
+                const b = Swal.getHtmlContainer().querySelector('b')
+                timerInterval = setInterval(() => {
+                    const content = Swal.getContent()
+                    if (content) {
+                        const b = content.querySelector('b')
+                        if (b) {
+                            b.textContent = Swal.getTimerLeft()
                         }
-                    }).then((result) => {
-                        /* Read more about handling dismissals below */
-                        if (result.dismiss === Swal.DismissReason.timer) {
-                            // console.log('I was closed by the timer')
-                        }
-                    })
+                    }
+                }, 100)
+            },
+            onClose: () => {
+                clearInterval(timerInterval)
+                this.start()
+            }
+        }).then((result) => {
+            /* Read more about handling dismissals below */
+            if (result.dismiss === Swal.DismissReason.timer) {
+                // console.log('I was closed by the timer')
+            }
+        })
 
-                }
+    }
 
 
 
