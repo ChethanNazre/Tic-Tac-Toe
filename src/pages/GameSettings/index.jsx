@@ -78,10 +78,7 @@ class GameSettings extends Component {
         themes.loadThemes();
 
     }
-    getCurrentRoundText() {
-        const { maxRounds } = this.state;
-        return `Current Round Setting: ${maxRounds}`;
-    }
+
     changeTheme(themeIndex) {
 
         switch (themeIndex) {
