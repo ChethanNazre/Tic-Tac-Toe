@@ -1,3 +1,8 @@
+:root {
+    --bgc: #f0f0f0;
+    --text-color: #222;
+}
+
 .Game {
     font-family: Helvetica, sans-serif;
     display: flex;
@@ -6,12 +11,13 @@
     justify-content: center;
     height: 100vh;
     background-color: var(--bgc);
+    padding: 16px;
+    box-sizing: border-box;
 }
 
 .player {
     color: var(--text-color);
 }
-
 
 .confirmBtn {
     margin-left: 7px;
@@ -25,4 +31,17 @@
     width: 370px;
     display: flex;
     justify-content: space-between;
+}
+
+@media (max-width: 420px) {
+    .buttons {
+        width: 100%;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .confirmBtn,
+    .cancelBtn {
+        margin: 0;
+        width: 100%;
+    }
 }
